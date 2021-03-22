@@ -15,5 +15,6 @@ const query = (sql, values) => {
 };
 
 module.exports = {
-  query
+  query,
+  pool: pool.promise()
 };
