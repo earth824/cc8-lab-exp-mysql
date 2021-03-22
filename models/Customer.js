@@ -35,6 +35,13 @@ class Customer {
         throw new Error('cannot find customer id');
       });
   }
+
+  static deleteById(id) {
+    return db.query('DELETE FROM customers WHERE id = ?', [id]).then(result => {
+      if (result.affectedRows) return result.affectedRows;
+      throw new Error('cannot find customer id');
+    });
+  }
 }
 
 module.exports = Customer;

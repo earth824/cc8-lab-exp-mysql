@@ -50,4 +50,12 @@ exports.updateCustomer = async (req, res, next) => {
   }
 };
 
-exports.deleteCustomer = async (req, res, next) => {};
+exports.deleteCustomer = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await Customer.deleteById(id);
+    res.status(204).json();
+  } catch (err) {
+    next(err);
+  }
+};
