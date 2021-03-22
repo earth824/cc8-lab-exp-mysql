@@ -35,15 +35,19 @@ exports.createCustomer = async (req, res, next) => {
 };
 
 exports.updateCustomer = async (req, res, next) => {
-  const { id } = req.params;
-  const { name, address } = req.body;
-  if (!name || !name.trim())
-    return res.status(400).json({ message: 'name is required' });
-  if (!address || !address.trim())
-    return res.status(400).json({ message: 'address is required' });
+  try {
+    const { id } = req.params;
+    const { name, address } = req.body;
+    if (!name || !name.trim())
+      return res.status(400).json({ message: 'name is required' });
+    if (!address || !address.trim())
+      return res.status(400).json({ message: 'address is required' });
 
-  const customer = await Customer.updateById(id, { name, address });
-  res.status(200).json({ customer });
+    const customer = await Customer.updateById(id, { name, address });
+    res.status(200).json({ customer });
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.deleteCustomer = async (req, res, next) => {};
