@@ -2,6 +2,21 @@ const Order = require('../models/Order');
 const OrderItem = require('../models/OrderItem');
 const Product = require('../models/Product');
 
+exports.getOrder = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const order = await Order.findById(id);
+    res.status(200).json({ order });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getTotalSale = async (req, res, next) => {
+  const result = await Order.getTotalSale();
+  res.status(200).json(result[0]);
+};
+
 exports.createOrder = async (req, res, next) => {
   try {
     const { customerId, employeeId, items } = req.body;
